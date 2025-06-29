@@ -1,6 +1,6 @@
 "use client";
 
-import { Facebook, Twitter, Instagram } from "lucide-react";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -10,8 +10,7 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-2">Filters</h3>
           <ul className="space-y-1">
-            <li>All</li>
-            <li>Electronics</li>
+            <li>All ElEgronk </li>
           </ul>
           <p className="mt-4 text-xs text-gray-300">© 2024 American</p>
         </div>
@@ -29,19 +28,14 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-2">Follow Us</h3>
           <div className="flex gap-4">
-            {/* Facebook */}
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <Facebook className="w-4 h-4 text-white"></Facebook>
+              <FaFacebookF className="text-white text-[14px]" />
             </div>
-
-            {/* twitter */}
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <Twitter className="w-4 h-4 text-white"></Twitter>
+              <FaTwitter className="text-white text-[14px]" />
             </div>
-
-            {/* Instagram */}
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <Instagram className="w-4 h-4 text-white"></Instagram>
+              <FaInstagram className="text-white text-[14px]" />
             </div>
           </div>
         </div>
