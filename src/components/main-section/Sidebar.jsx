@@ -1,16 +1,33 @@
 "use client";
 
-import { useState } from "react";
 import { Range } from "react-range";
+import { useFilters } from "@/context/FilterContext";
 
 const categories = ["All", "Electronics", "Clothing", "Home"];
 
 export default function Sidebar() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const { filters, setFilters } = useFilters();
+
+  const ABS_MIN = 0;
+  const ABS_MAX = 1000;
+
+  const handleCategoryChange = (e) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      category: e.target.value,
+    }));
+  };
+
+  const handlePriceChange = (values) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      minPrice: values[0],
+      maxPrice: values[1],
+    }));
+  };
 
   return (
-    <div className="bg-[#004AAD] text-white px-4 py-6 rounded-xl space-y-6 text-sm w-full max-w-[220px] mx-auto">
+    <div className="bg-[#005cbf] text-white px-4 py-6 rounded-xl space-y-6 text-sm w-full max-w-[220px] mx-auto">
       <h2 className="text-lg font-semibold">Filters</h2>
       {/* Category Filter */}
       <div>
@@ -21,7 +38,7 @@ export default function Sidebar() {
               <label className="flex items-center space-x-3 cursor-pointer">
                 <span
                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                    selectedCategory === cat
+                    filters.category === cat
                       ? "border-white"
                       : "border-white/40"
                   }`}
@@ -30,8 +47,8 @@ export default function Sidebar() {
                   type="radio"
                   name="category"
                   value={cat}
-                  checked={selectedCategory === cat}
-                  onChange={() => setSelectedCategory(cat)}
+                  checked={filters.category === cat}
+                  onChange={handleCategoryChange}
                   className="hidden"
                 ></input>
                 <span className="text-sm">{cat}</span>
@@ -46,10 +63,10 @@ export default function Sidebar() {
         <h3 className="mb-3 font-medium">Price</h3>
         <Range
           step={50}
-          min={0}
-          max={1000}
-          values={priceRange}
-          onChange={(values) => setPriceRange(values)}
+          min={ABS_MIN}
+          max={ABS_MAX}
+          values={[filters.minPrice, filters.maxPrice]}
+          onChange={handlePriceChange}
           renderTrack={({ props, children }) => (
             <div
               {...props}
@@ -59,16 +76,21 @@ export default function Sidebar() {
               {children}
             </div>
           )}
-          renderThumb={({ props }) => (
-            <div
-              {...props}
-              className="w-4 h-4 bg-white border-2 border-white rounded-full shadow"
-            ></div>
-          )}
+          renderThumb={({ props }) => {
+            const { key, ...restProps } = props;
+
+            return (
+              <div
+                key={key}
+                {...restProps}
+                className="w-4 h-4 bg-white border-2 border-white rounded-full shadow"
+              ></div>
+            );
+          }}
         ></Range>
         <div className="flex justify-between text-xs text-white mt-2">
-          <span>${priceRange[0]}</span>
-          <span>${priceRange[1]}</span>
+          <span>${filters.minPrice}</span>
+          <span>${filters.maxPrice}</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "title": "Running Shoes",
+    "price": 99,
+    "card-dimensions": "small",
+    "image": "/productImages/img1.png",
+    "description": "Lightweight running shoes for everyday use",
+    "category": "Clothing"
+  },
+  {
+    "id": 2,
+    "title": "Wireless Headphones",
+    "price": 199,
+    "card-dimensions": "small",
+    "image": "/productImages/img2.png",
+    "description": "Noise-cancelling over-ear headphones",
+    "category": "Electronics"
+  },
+  {
+    "id": 3,
+    "title": "Backpack",
+    "price": 129,
+    "card-dimensions": "small",
+    "image": "/productImages/img3.png",
+    "description": "Durable travel backpack with multiple compartments.",
+    "category": "Clothing"
+  },
+  {
+    "id": 4,
+    "title": "Smartwatch",
+    "price": 249,
+    "card-dimensions": "small",
+    "image": "/productImages/img4.png",
+    "description": "Touchscreen smartwatch with health tracking.",
+    "category": "Electronics"
+  },
+  {
+    "id": 5,
+    "title": "Sunglasses",
+    "price": 149,
+    "card-dimensions": "small",
+    "image": "/productImages/img5.png",
+    "description": "Polarized sunglasses with UV protection.",
+    "category": "Clothing"
+  },
+  {
+    "id": 6,
+    "title": "Digital Camera",
+    "price": 499,
+    "card-dimensions": "small",
+    "image": "/productImages/img6.png",
+    "description": "High-resolution camera with 4K video support.",
+    "category": "Electronics"
+  },
+  {
+    "id": 7,
+    "title": "T-shirt",
+    "price": 29,
+    "card-dimensions": "small",
+    "image": "/productImages/img7.png",
+    "description": "Cotton crew neck t-shirt available in multiple sizes.",
+    "category": "Clothing"
+  },
+  {
+    "id": 8,
+    "title": "Smartphone",
+    "price": 699,
+    "card-dimensions": "big",
+    "ratings": "4.5",
+    "image": "/productImages/img8.png",
+    "description": "Lorem ipsum dolor amet, conssectetur euisagend.",
+    "category": "Electronics"
+  }
+]
