@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState, useContext, useMemo } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import allProducts from "@/data/products.json";
 
 //1.Create the context
@@ -8,31 +9,57 @@ const FilterContext = createContext();
 
 //2. Create the provider component
 export function FilterProvider({ children }) {
-  const [filters, setFilters] = useState({
-    category: "All",
-    minPrice: 0, //Default min price
-    maxPrice: 1000,
-    searchQuery: "",
-  });
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const urlFilters = useMemo(() => {
+    const category = searchParams.get("category") || "All";
+    const price = searchParams.get("price")?.split("-") || [0, 1000];
+
+    return {
+      category,
+      minPrice: Number(price[0]), //Default min price
+      maxPrice: Number(price[1]),
+    };
+  }, [searchParams]);
 
   //Memoize the filtered products to avoid recalculating on every render
   const filteredProducts = useMemo(() => {
     return allProducts.filter((product) => {
       const searchMatch =
-        filters.searchQuery === "" ||
-        product.title.toLowerCase().includes(filters.searchQuery.toLowerCase());
+        searchQuery === "" ||
+        product.title.toLowerCase().includes(searchQuery.toLowerCase());
 
       const categoryMatch =
-        filters.category === "All" || product.category === filters.category;
+        urlFilters.category === "All" ||
+        product.category === urlFilters.category;
       const priceMatch =
-        product.price >= filters.minPrice && product.price <= filters.maxPrice;
+        product.price >= urlFilters.minPrice &&
+        product.price <= urlFilters.maxPrice;
       return searchMatch && categoryMatch && priceMatch;
     });
-  }, [filters]);
+  }, [urlFilters, searchQuery]);
+
+  const updateUrlFilters = (newFilters) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(newFilters).forEach(([Key, value]) => {
+      if (value) {
+        params.set(Key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   const value = {
-    filters,
-    setFilters,
+    urlFilters,
+    searchQuery,
+    setSearchQuery,
+    updateUrlFilters,
     filteredProducts,
   };
 

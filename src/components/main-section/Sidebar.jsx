@@ -6,24 +6,19 @@ import { useFilters } from "@/context/FilterContext";
 const categories = ["All", "Electronics", "Clothing", "Home"];
 
 export default function Sidebar() {
-  const { filters, setFilters } = useFilters();
+  const { urlFilters, updateUrlFilters } = useFilters();
 
   const ABS_MIN = 0;
   const ABS_MAX = 1000;
 
   const handleCategoryChange = (e) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
+    updateUrlFilters({
       category: e.target.value,
-    }));
+    });
   };
 
   const handlePriceChange = (values) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      minPrice: values[0],
-      maxPrice: values[1],
-    }));
+    updateUrlFilters({ price: `${values[0]}-${values[1]}` });
   };
 
   return (
@@ -38,7 +33,7 @@ export default function Sidebar() {
               <label className="flex items-center space-x-3 cursor-pointer">
                 <span
                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                    filters.category === cat
+                    urlFilters.category === cat
                       ? "border-white"
                       : "border-white/40"
                   }`}
@@ -47,7 +42,7 @@ export default function Sidebar() {
                   type="radio"
                   name="category"
                   value={cat}
-                  checked={filters.category === cat}
+                  checked={urlFilters.category === cat}
                   onChange={handleCategoryChange}
                   className="hidden"
                 ></input>
@@ -65,7 +60,7 @@ export default function Sidebar() {
           step={50}
           min={ABS_MIN}
           max={ABS_MAX}
-          values={[filters.minPrice, filters.maxPrice]}
+          values={[urlFilters.minPrice, urlFilters.maxPrice]}
           onChange={handlePriceChange}
           renderTrack={({ props, children }) => (
             <div
@@ -89,8 +84,8 @@ export default function Sidebar() {
           }}
         ></Range>
         <div className="flex justify-between text-xs text-white mt-2">
-          <span>${filters.minPrice}</span>
-          <span>${filters.maxPrice}</span>
+          <span>${urlFilters.minPrice}</span>
+          <span>${urlFilters.maxPrice}</span>
         </div>
       </div>
     </div>

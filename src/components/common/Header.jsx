@@ -5,13 +5,10 @@ import Link from "next/link";
 import { useFilters } from "@/context/FilterContext";
 
 export default function Header() {
-  const { filters, setFilters } = useFilters();
+  const { searchQuery, setSearchQuery } = useFilters();
 
   const handleSearchChange = (e) => {
-    setFilters((prev) => ({
-      ...prev,
-      searchQuery: e.target.value,
-    }));
+    setSearchQuery(e.target.value);
   };
 
   return (
@@ -30,7 +27,7 @@ export default function Header() {
               type="text"
               placeholder="Search for products..."
               className="w-full bg-transparent border border-white rounded-lg py-2 pl-12 pr-4 text-sm placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-white"
-              value={filters.searchQuery}
+              value={searchQuery}
               onChange={handleSearchChange}
             ></input>
           </div>
