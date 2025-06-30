@@ -4,9 +4,14 @@ import { X, Plus, Minus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { useCart } from "@/context/CartContext";
+
 export default function ProductDetail({ product }) {
   const router = useRouter();
+  const { addToCart, removeFromCart, isInCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  const inCart = isInCart(product.id);
 
   //Handlers for quantity change.
   const handleIncrease = () => setQuantity((prev) => prev + 1);
@@ -67,8 +72,17 @@ export default function ProductDetail({ product }) {
           </div>
         </div>
 
-        <button className="bg-[#005cbf] text-white text-xl font-bold px-10 py-4 rounded-xl mt-4 self-start">
-          Add to Cart
+        <button
+          className={`${
+            inCart
+              ? "bg-red-600 hover:bg-red-700"
+              : "bg-[#005cbf] hover:bg-blue-900"
+          } text-white text-xl font-bold px-10 py-4 rounded-xl mt-4 self-start`}
+          onClick={() => {
+            inCart ? removeFromCart(product.id) : addToCart(product);
+          }}
+        >
+          {inCart ? "Remove from Cart" : "Add to Cart"}
         </button>
       </div>
     </div>

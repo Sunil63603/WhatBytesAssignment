@@ -4,8 +4,12 @@ import { ShoppingCart, User, Search } from "lucide-react";
 import Link from "next/link";
 import { useFilters } from "@/context/FilterContext";
 
+import { useCart } from "@/context/CartContext";
+
 export default function Header() {
   const { searchQuery, setSearchQuery } = useFilters();
+
+  const { cartCount } = useCart();
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -39,7 +43,7 @@ export default function Header() {
               <span className="text-sm font-medium">Cart</span>
             </button>
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full min-w-[16px] h-[16px] flex items-center justify-center">
-              0
+              {cartCount}
             </span>
           </div>
         </div>
