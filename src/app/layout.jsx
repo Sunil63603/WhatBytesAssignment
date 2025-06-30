@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-screen flex flex-col bg-[#f4f9ff] text-gray-900">
         <ContextProviders>
           <Header></Header>
-          <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-14">
+          <main className="max-w-7xl mx-auto flex-1 w-full max-w-7xl mx-auto px-4 py-14">
             {children}
           </main>
           <Footer></Footer>

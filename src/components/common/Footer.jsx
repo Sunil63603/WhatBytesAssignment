@@ -4,8 +4,8 @@ import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#002766] text-white mt-12">
-      <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+    <footer className="w-full bg-[#002766] text-white mt-12">
+      <div className="px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
         {/* Filters */}
         <div>
           <h3 className="font-semibold mb-2">Filters</h3>

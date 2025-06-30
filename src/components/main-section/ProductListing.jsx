@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { useRouter } from "next/navigation";
 import { useFilters } from "@/context/FilterContext";
 import { useCart } from "@/context/CartContext";
+import { useIsMobile } from "@/utils/useIsMobile";
 
 function StarRating({ rating }) {
   const fullStarColor = "#002766"; // Lighter blue (Tailwind's blue-500)
@@ -79,6 +82,8 @@ export default function ProductListing() {
   const { filteredProducts } = useFilters();
   const { addToCart, removeFromCart, isInCart } = useCart();
 
+  const isMobile = useIsMobile();
+
   const handleProductClick = (productId) => {
     router.push(`/product/${productId}`);
   };
@@ -125,47 +130,52 @@ export default function ProductListing() {
                 </button>
               </div>
             ) : (
-              <div
-                key={product.id}
-                onClick={() => handleProductClick(product.id)}
-                className="bg-white rounded-md px-4 pt-4 pb-6 shadow-sm text-black flex col-span-2 row-span-2 w-[384px] h-[420px] cursor-pointer hover:shadow-2xl transition-shadow"
-              >
-                {/* Left Image */}
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-[180px] h-[340px] object-cover mr-4"
-                ></img>
+              //Only render big card if not on mobile
+              !isMobile && (
+                <div
+                  key={product.id}
+                  onClick={() => handleProductClick(product.id)}
+                  className="bg-white rounded-md px-4 pt-4 pb-6 shadow-sm text-black flex col-span-2 row-span-2 w-[384px] h-[420px] cursor-pointer hover:shadow-2xl transition-shadow"
+                >
+                  {/* Left Image */}
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-[180px] h-[340px] object-cover mr-4"
+                  ></img>
 
-                {/* Right:Details */}
-                <div className="flex flex-col flex-1 justify-between mt-8">
-                  <div>
-                    <h3 className="font-bold text-2xl mb-1">{product.title}</h3>
-                    <p className="text-xl font-bold mb-2">${product.price}</p>
-                    <StarRating rating={Number(product.ratings) || 0} />
-                    <p className="text-md mb-4 mt-6">{product.description}</p>
-                    <p className="text-md text-black mb-2">Category</p>
-                    <p className="text-md text-black mb-2">
-                      {product.category}
-                    </p>
+                  {/* Right:Details */}
+                  <div className="flex flex-col flex-1 justify-between mt-8">
+                    <div>
+                      <h3 className="font-bold text-2xl mb-1">
+                        {product.title}
+                      </h3>
+                      <p className="text-xl font-bold mb-2">${product.price}</p>
+                      <StarRating rating={Number(product.ratings) || 0} />
+                      <p className="text-md mb-4 mt-6">{product.description}</p>
+                      <p className="text-md text-black mb-2">Category</p>
+                      <p className="text-md text-black mb-2">
+                        {product.category}
+                      </p>
+                    </div>
+                    <button
+                      className={`${
+                        isInCart(product.id)
+                          ? "bg-red-600 hover:bg-red-700"
+                          : "bg-[#005cbf] hover:bg-blue-900"
+                      } text-white text-base font-semibold px-8 py-3 rounded-lg mt-2 self-start`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        isInCart(product.id)
+                          ? removeFromCart(product.id)
+                          : addToCart(product);
+                      }}
+                    >
+                      {isInCart(product.id) ? "Remove" : "Add to Cart"}
+                    </button>
                   </div>
-                  <button
-                    className={`${
-                      isInCart(product.id)
-                        ? "bg-red-600 hover:bg-red-700"
-                        : "bg-[#005cbf] hover:bg-blue-900"
-                    } text-white text-base font-semibold px-8 py-3 rounded-lg mt-2 self-start`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      isInCart(product.id)
-                        ? removeFromCart(product.id)
-                        : addToCart(product);
-                    }}
-                  >
-                    {isInCart(product.id) ? "Remove" : "Add to Cart"}
-                  </button>
                 </div>
-              </div>
+              )
             )
           )
         )}
