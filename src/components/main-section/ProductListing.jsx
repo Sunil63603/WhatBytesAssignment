@@ -93,7 +93,7 @@ export default function ProductListing() {
       <h2 className="text-2xl font-bold mb-4 ml-20 text-black">
         Product Listing
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+      <div className="grid gap-6 justify-center [grid-template-columns:repeat(1,180px)] sm:[grid-template-columns:repeat(2,180px)] lg:[grid-template-columns:repeat(3,180px)]">
         {filteredProducts.length === 0 ? (
           <div className="col-span-full text-center text-lg text-gray-500 py-12">
             No Products Found.Try changing Filters
