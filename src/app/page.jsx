@@ -1,7 +1,7 @@
 //component imports
 import Sidebar from "@/components/main-section/Sidebar";
 import CacyroySidebar from "@/components/main-section/CacyroySidebar";
-import ProductListing from "@/components/main-section/ProductListing";
+import ProductListing from "@/components/main-section/products-grid/ProductListing";
 
 export default function HomePage() {
   return (
