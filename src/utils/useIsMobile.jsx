@@ -1,3 +1,7 @@
+//This custom hook is used to find if screen-size is of mobile or not.
+//On mobile screen's bigCard will not be displayed(Smartphone Card)
+
+//react imports
 import { useEffect, useState } from "react";
 
 export function useIsMobile() {

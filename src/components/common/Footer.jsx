@@ -1,5 +1,6 @@
 "use client";
 
+//icon-imports
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
@@ -10,7 +11,7 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-2">Filters</h3>
           <ul className="space-y-1">
-            <li>All ElEgronk </li>
+            <li className="cursor-pointer">All ElEgronk </li>
           </ul>
           <p className="mt-4 text-xs text-gray-300">© 2024 American</p>
         </div>
@@ -19,8 +20,8 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-2">About Us</h3>
           <ul className="space-y-1">
-            <li>About Us</li>
-            <li>Contact</li>
+            <li className="cursor-pointer">About Us</li>
+            <li className="cursor-pointer">Contact</li>
           </ul>
         </div>
 
@@ -29,13 +30,13 @@ export default function Footer() {
           <h3 className="font-semibold mb-2">Follow Us</h3>
           <div className="flex gap-4">
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <FaFacebookF className="text-white text-[14px]" />
+              <FaFacebookF className="text-white text-[14px] cursor-pointer" />
             </div>
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <FaTwitter className="text-white text-[14px]" />
+              <FaTwitter className="text-white text-[14px] cursor-pointer" />
             </div>
             <div className="w-8 h-8 bg-[#0053B3] rounded-full flex items-center justify-center">
-              <FaInstagram className="text-white text-[14px]" />
+              <FaInstagram className="text-white text-[14px] cursor-pointer" />
             </div>
           </div>
         </div>

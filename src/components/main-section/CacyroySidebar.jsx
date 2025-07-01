@@ -1,10 +1,13 @@
 "use client";
 
+//react imports
 import { useState } from "react";
 
+//placed outside component to prevent unnecessary re-renders
 const categories = ["All", "Electronics", "Clothing", "Home"];
 
 export default function CacyroySidebar() {
+  //state variables
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [price, setPrice] = useState(5000);
 

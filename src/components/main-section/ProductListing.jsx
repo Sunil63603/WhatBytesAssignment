@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
+//NextJS imports
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+//context imports
 import { useFilters } from "@/context/FilterContext";
 import { useCart } from "@/context/CartContext";
+
+//Custom hook to check if screen is of mobile dimensions(BigProductCard should not be displayed)
 import { useIsMobile } from "@/utils/useIsMobile";
 
+//component for star-ratings
 function StarRating({ rating }) {
   const fullStarColor = "#002766"; // Lighter blue (Tailwind's blue-500)
   const emptyStarColor = "#e5e7eb"; // Light gray (Tailwind's gray-200)
@@ -79,11 +84,15 @@ function StarRating({ rating }) {
 
 export default function ProductListing() {
   const router = useRouter();
+
+  //contexts
   const { filteredProducts } = useFilters();
   const { addToCart, removeFromCart, isInCart } = useCart();
 
+  //based on this, bigProductCard will be displayed
   const isMobile = useIsMobile();
 
+  //changing route to display '/product/id'
   const handleProductClick = (productId) => {
     router.push(`/product/${productId}`);
   };
@@ -106,11 +115,13 @@ export default function ProductListing() {
                 onClick={() => handleProductClick(product.id)}
                 className="bg-white rounded-md px-4 pt-4 pb-6 shadow-sm text-black flex flex-col w-[180px] cursor-pointer hover:shadow-2xl transition-shadow"
               >
-                <img
+                <Image
                   src={product.image}
                   alt={product.title}
-                  className="w-[140px] h-[110px] object-cover mx-auto mb-4"
-                ></img>
+                  width={140}
+                  height={110}
+                  className="object-cover mx-auto mb-4"
+                ></Image>
                 <h3 className="font-bold text-xl mb-1">{product.title}</h3>
                 <p className="text-xl font-semibold mb-4">${product.price}</p>
                 <button
@@ -118,7 +129,7 @@ export default function ProductListing() {
                     isInCart(product.id)
                       ? "bg-red-600 hover:bg-red-700"
                       : "bg-[#0071E3] hover:bg-blue-700"
-                  } text-white text-base font-semibold px-4 py-2 rounded-lg`}
+                  } text-white text-base font-semibold px-4 py-2 rounded-lg cursor-pointer`}
                   onClick={(e) => {
                     e.stopPropagation();
                     isInCart(product.id)
@@ -138,11 +149,13 @@ export default function ProductListing() {
                   className="bg-white rounded-md px-4 pt-4 pb-6 shadow-sm text-black flex col-span-2 row-span-2 w-[384px] h-[420px] cursor-pointer hover:shadow-2xl transition-shadow"
                 >
                   {/* Left Image */}
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.title}
-                    className="w-[180px] h-[340px] object-cover mr-4"
-                  ></img>
+                    width={180}
+                    height={340}
+                    className="object-cover mr-4"
+                  ></Image>
 
                   {/* Right:Details */}
                   <div className="flex flex-col flex-1 justify-between mt-8">
@@ -163,7 +176,7 @@ export default function ProductListing() {
                         isInCart(product.id)
                           ? "bg-red-600 hover:bg-red-700"
                           : "bg-[#005cbf] hover:bg-blue-900"
-                      } text-white text-base font-semibold px-8 py-3 rounded-lg mt-2 self-start`}
+                      } text-white text-base font-semibold px-8 py-3 rounded-lg mt-2 self-start cursor-pointer`}
                       onClick={(e) => {
                         e.stopPropagation();
                         isInCart(product.id)

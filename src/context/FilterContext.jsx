@@ -1,7 +1,12 @@
 "use client";
 
+//react imports
 import { createContext, useState, useContext, useMemo } from "react";
+
+//NextJS imports
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+
+//static JSON file import
 import allProducts from "@/data/products.json";
 
 //1.Create the context
@@ -13,6 +18,8 @@ export function FilterProvider({ children }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  //searchQuery is from Header.jsx component.
+  //But 'category' and 'price-range' are extracted from Url.
   const [searchQuery, setSearchQuery] = useState("");
 
   const urlFilters = useMemo(() => {
@@ -26,6 +33,7 @@ export function FilterProvider({ children }) {
     };
   }, [searchParams]);
 
+  //Good for Performance
   //Memoize the filtered products to avoid recalculating on every render
   const filteredProducts = useMemo(() => {
     return allProducts.filter((product) => {
@@ -43,6 +51,7 @@ export function FilterProvider({ children }) {
     });
   }, [urlFilters, searchQuery]);
 
+  //update URL when user tries to changes filters in side-bar
   const updateUrlFilters = (newFilters) => {
     const params = new URLSearchParams(searchParams);
     Object.entries(newFilters).forEach(([Key, value]) => {

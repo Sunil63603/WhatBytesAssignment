@@ -1,8 +1,12 @@
 "use client";
 
+//Price Range Slider in sidebar
 import { Range } from "react-range";
+
+//context imports
 import { useFilters } from "@/context/FilterContext";
 
+//placed outside component for performance optimization(to prevent unnecessary re-renders)
 const categories = ["All", "Electronics", "Clothing", "Home"];
 
 export default function Sidebar() {

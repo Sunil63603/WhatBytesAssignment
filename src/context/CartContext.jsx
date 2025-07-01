@@ -1,5 +1,6 @@
 "use client";
 
+//react imports
 import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
@@ -25,8 +26,10 @@ export function CartProvider({ children }) {
     setCart((prev) => prev.filter((p) => p.id !== productId));
   };
 
+  //to check product is in Cart or not.
   const isInCart = (productId) => cart.some((p) => p.id === productId);
 
+  //this is used to display badge on cart button's header.
   const cartCount = cart.length;
 
   return (
@@ -38,6 +41,7 @@ export function CartProvider({ children }) {
   );
 }
 
+//custom hook to use this context
 export function useCart() {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error("useCart must be used within a CartProvider");
